@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
         binding.list.visibility = View.GONE
         binding.swipe.isRefreshing = true
         homeViewModel = ViewModelProvider(this, HomeViewModelFactory())[HomeViewModel::class.java]
-        homeViewModel.museumList.observe(viewLifecycleOwner, {
+        homeViewModel.homeList.observe(viewLifecycleOwner, {
             binding.swipe.isRefreshing = false
             if (it != null) {
                 binding.empty.root.visibility = View.GONE
