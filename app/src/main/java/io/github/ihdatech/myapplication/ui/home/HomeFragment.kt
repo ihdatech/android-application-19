@@ -7,15 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.hilt.android.AndroidEntryPoint
-import io.github.ihdatech.myapplication.MyApplication
 import io.github.ihdatech.myapplication.databinding.FragmentHomeBinding
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    @Inject lateinit var app: MyApplication
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
 

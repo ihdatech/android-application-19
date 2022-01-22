@@ -2,7 +2,7 @@ package io.github.ihdatech.myapplication.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import io.github.ihdatech.myapplication.data.MuseumRepository
+import io.github.ihdatech.myapplication.data.HomeRepository
 import io.github.ihdatech.myapplication.data.model.HomesResponse
 import io.github.ihdatech.myapplication.data.model.LoggedInHome
 import io.github.ihdatech.myapplication.utils.defaultErrorHandler
@@ -12,11 +12,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class HomeViewModel(private val museumRepository: MuseumRepository) : ViewModel() {
+class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
     private val disposable: CompositeDisposable = CompositeDisposable()
-
+    // private val _list = MutableLiveData<ArrayList<LoggedInHome>>()
+    // val list: LiveData<ArrayList<LoggedInHome>> = _list
     val homeResult: LiveData<Result<HomesResponse>> by lazy {
-        museumRepository.getList()
+        homeRepository.getList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { Result.success(it) }
@@ -25,16 +26,14 @@ class HomeViewModel(private val museumRepository: MuseumRepository) : ViewModel(
             .startWith(Result.loading())
             .toLiveData()
     }
-
     val homeList: LiveData<ArrayList<LoggedInHome>?> by lazy {
-        museumRepository.getList()
+        homeRepository.getList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { it.data }
             .doOnError(defaultErrorHandler())
             .toLiveData()
     }
-
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

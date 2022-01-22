@@ -1,14 +1,14 @@
 package io.github.ihdatech.myapplication.utils
 
-sealed class Result<T> {
+sealed class Result<out T : Any> {
 
-    class Loading<T> : Result<T>()
-    data class Success<T>(val data: T) : Result<T>()
-    data class Failure<T>(val message: Throwable) : Result<T>()
+    class Loading<out T : Any> : Result<T>()
+    data class Success<out T : Any>(val data: T) : Result<T>()
+    data class Failure<out T : Any>(val message: Throwable) : Result<T>()
 
     companion object {
-        fun <T> loading(): Result<T> = Loading()
-        fun <T> success(data: T): Result<T> = Success(data)
-        fun <T> failure(message: Throwable): Result<T> = Failure(message)
+        fun <T : Any> loading(): Result<T> = Loading()
+        fun <T : Any> success(data: T): Result<T> = Success(data)
+        fun <T : Any> failure(message: Throwable): Result<T> = Failure(message)
     }
 }

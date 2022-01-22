@@ -18,10 +18,4 @@ object AppModule {
     fun provideApplication(@ApplicationContext app: Context): MyApplication{
         return app as MyApplication
     }
-
-    @Singleton
-    @Provides
-    fun provideWelcomeString(): String{
-        return "Welcome!, My Application"
-    }
 }

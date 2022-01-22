@@ -7,13 +7,13 @@
             name="isEmpty"
             type="int" />
         <variable
-            name="viewmodel"
+            name="viewModel"
             type="io.github.ihdatech.myapplication.ui.home.HomeViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
-        android:name="id.co.bankneo.ecommerce.ui.home.HomeFragment"
+        android:name="io.github.ihdatech.myapplication.ui.home.HomeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment">
@@ -33,7 +33,6 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 tools:listitem="@layout/fragment_home_item" />
         </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

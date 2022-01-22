@@ -1,11 +1,11 @@
-package io.github.ihdatech.myapplication.data
+package io.github.ihdatech.myapplication.data.remote
 
 import io.github.ihdatech.myapplication.data.model.HomesResponse
 import io.reactivex.Flowable
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface MuseumDataSource {
+interface MuseumService {
     @GET("/api/museums")
     fun museumList(): Flowable<HomesResponse>
 
