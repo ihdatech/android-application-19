@@ -14,6 +14,7 @@ import io.github.ihdatech.myapplication.databinding.FragmentDashboardBinding
 class DashboardFragment : Fragment() {
 
     private val dashboardViewModel: DashboardViewModel by viewModels()
+    // private lateinit var dashboardViewModel: DashboardViewModel
     private var _binding: FragmentDashboardBinding? = null
 
     // This property is only valid between onCreateView and
@@ -32,6 +33,7 @@ class DashboardFragment : Fragment() {
         binding.listDashboard.visibility = View.GONE
         binding.swipeDashboard.isRefreshing = true
         // println("[TATA FUCKING IN FRAGMENT]: ${newsService.everything()}")
+        // dashboardViewModel = ViewModelProvider(this, DashboardViewModelFactory())[DashboardViewModel::class.java]
         dashboardViewModel.articles.observe(viewLifecycleOwner, { listResult ->
             listResult.map {
                 binding.swipeDashboard.isRefreshing = false

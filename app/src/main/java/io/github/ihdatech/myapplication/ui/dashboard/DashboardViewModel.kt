@@ -26,6 +26,7 @@ class DashboardViewModel @Inject constructor(
             .map { Result.success(it) }
             .doOnError(defaultErrorHandler())
             .onErrorReturn { Result.failure(it) }
+            // .startWith(Result.loading())
             .toLiveData()
     }
     override fun onCleared() {

@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.ihdatech.myapplication.databinding.FragmentHomeBinding
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by viewModels()
+    // private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
@@ -29,20 +32,22 @@ class HomeFragment : Fragment() {
         binding.list.layoutManager = LinearLayoutManager(context)
         binding.list.visibility = View.GONE
         binding.swipe.isRefreshing = true
-        homeViewModel = ViewModelProvider(this, HomeViewModelFactory())[HomeViewModel::class.java]
-        homeViewModel.homeList.observe(viewLifecycleOwner, {
-            binding.swipe.isRefreshing = false
-            if (it != null) {
-                binding.empty.root.visibility = View.GONE
-                binding.list.visibility = View.VISIBLE
-                binding.list.adapter = HomeAdapter(it)
-                binding.swipe.setOnRefreshListener {
-                    binding.swipe.isRefreshing = false
-                    binding.list.adapter = HomeAdapter(it)
+        // homeViewModel = ViewModelProvider(this, HomeViewModelFactory())[HomeViewModel::class.java]
+        homeViewModel.list.observe(viewLifecycleOwner, { listResult ->
+            listResult.map {
+                binding.swipe.isRefreshing = false
+                if (it.data != null) {
+                    binding.empty.root.visibility = View.GONE
+                    binding.list.visibility = View.VISIBLE
+                    binding.list.adapter = HomeAdapter(it.data)
+                    binding.swipe.setOnRefreshListener {
+                        binding.swipe.isRefreshing = false
+                        binding.list.adapter = HomeAdapter(it.data)
+                    }
+                } else {
+                    binding.empty.root.visibility = View.VISIBLE
+                    binding.list.visibility = View.GONE
                 }
-            } else {
-                binding.empty.root.visibility = View.VISIBLE
-                binding.list.visibility = View.GONE
             }
         })
     }
