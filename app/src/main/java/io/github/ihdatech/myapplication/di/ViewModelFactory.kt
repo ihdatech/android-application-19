@@ -2,15 +2,15 @@ package io.github.ihdatech.myapplication.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton
-class ViewModelFactory @Inject constructor(private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>) : ViewModelProvider.Factory {
-
+class ViewModelFactory @Inject constructor(
+    private val creators: Map<Class<out ViewModel>,
+            @JvmSuppressWildcards Provider<ViewModel>>,
+) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val creator = creators[modelClass as Class<ViewModel>]
