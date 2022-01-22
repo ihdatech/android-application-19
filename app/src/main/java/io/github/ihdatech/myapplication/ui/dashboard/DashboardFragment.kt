@@ -37,14 +37,17 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.articles.observe(viewLifecycleOwner, { listResult ->
             listResult.map {
                 binding.swipeDashboard.isRefreshing = false
-                if (it.articles != null || listOf(it.articles).isNotEmpty()) {
+                if (it.articles != null) {
                     binding.emptyDashboard.root.visibility = View.GONE
                     binding.listDashboard.visibility = View.VISIBLE
-                    binding.listDashboard.adapter = DashboardAdapter(it.articles!!)
+                    binding.listDashboard.adapter = DashboardAdapter(it.articles)
                     binding.swipeDashboard.setOnRefreshListener {
                         binding.swipeDashboard.isRefreshing = false
-                        binding.listDashboard.adapter = DashboardAdapter(it.articles!!)
+                        binding.listDashboard.adapter = DashboardAdapter(it.articles)
                     }
+                } else {
+                    binding.emptyDashboard.root.visibility = View.VISIBLE
+                    binding.listDashboard.visibility = View.GONE
                 }
             }
         })

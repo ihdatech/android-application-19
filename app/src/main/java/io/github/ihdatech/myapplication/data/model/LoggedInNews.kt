@@ -1,9 +1,9 @@
 package io.github.ihdatech.myapplication.data.model
 
 data class LoggedInNews(
-    var status: String?,
-    var totalResults: Int?,
-    var articles: ArrayList<LoggedInNewsArticles>?,
+    val status: String?,
+    val totalResults: Int?,
+    val articles: ArrayList<LoggedInNewsArticles>?,
 )
 
 data class LoggedInNewsArticles(

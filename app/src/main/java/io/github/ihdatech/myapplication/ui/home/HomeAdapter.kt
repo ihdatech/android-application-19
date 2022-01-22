@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import io.github.ihdatech.myapplication.data.model.LoggedInHome
+import io.github.ihdatech.myapplication.data.model.LoggedInHomeData
 import io.github.ihdatech.myapplication.databinding.FragmentHomeItemBinding
 
-class HomeAdapter(private var contentList: ArrayList<LoggedInHome>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(private var contentList: ArrayList<LoggedInHomeData>?) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(FragmentHomeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
