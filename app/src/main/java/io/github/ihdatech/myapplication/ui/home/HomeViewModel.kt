@@ -6,6 +6,7 @@ import androidx.lifecycle.toLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.ihdatech.myapplication.data.HomeRepository
 import io.github.ihdatech.myapplication.data.model.LoggedInHome
+import io.github.ihdatech.myapplication.data.model.LoggedInProduct
 import io.github.ihdatech.myapplication.utils.defaultErrorHandler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -19,6 +20,16 @@ class HomeViewModel @Inject constructor(
     private val disposable: CompositeDisposable = CompositeDisposable()
     val list: LiveData<Result<LoggedInHome>> by lazy {
         homeRepository.getList()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { Result.success(it) }
+            .doOnError(defaultErrorHandler())
+            .onErrorReturn { Result.failure(it) }
+            // .startWith(Result.loading())
+            .toLiveData()
+    }
+    val listFake: LiveData<Result<List<LoggedInProduct>>> by lazy {
+        homeRepository.getListFake()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { Result.success(it) }

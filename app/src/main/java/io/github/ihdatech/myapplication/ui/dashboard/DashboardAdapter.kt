@@ -25,7 +25,7 @@ class DashboardAdapter(
         holder.contentView.text = item.title
         contextList?.let {
             Glide.with(it)
-                .load(item.urlToImage)
+                .load("${item.urlToImage}?w=640&h=640&fit=crop&auto=format")
                 .apply(RequestOptions.centerCropTransform())
                 .into(holder.imageView)
         }

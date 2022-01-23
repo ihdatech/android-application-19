@@ -50,6 +50,11 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+        homeViewModel.listFake.observe(viewLifecycleOwner, { listResult ->
+            listResult.map {
+                println("[TATA FUCKING IN FRAGMENT]: $it")
+            }
+        })
     }
 
     override fun onDestroyView() {

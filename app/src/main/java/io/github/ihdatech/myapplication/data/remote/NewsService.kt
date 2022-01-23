@@ -8,10 +8,19 @@ import retrofit2.http.Query
 interface NewsService {
     @GET("/v2/everything")
     fun everything(
-        @Query("q") q: String? = "manga",
-        @Query("from") from: String? = "2021-12-21",
+        @Query("q") q: String? = "bitcoin",
+        @Query("from") from: String? = "2021-12-23",
         @Query("sortBy") sortBy: String? = "publishedAt",
         @Query("language") language: String? = "en",
-        @Query("apiKey") apiKey: String? = "98c8df982b8b4da8b86cd70e851fc521",
+        @Query("apiKey") apiKey: String? = "30ecb3c86e204bbe9207b869b1800e7b",
+    ): Flowable<LoggedInNews>
+
+    @GET("/v2/top-headlines")
+    fun topHeadlines(
+        @Query("q") q: String? = "Apple",
+        @Query("from") from: String? = "2021-12-23",
+        @Query("sortBy") sortBy: String? = "publishedAt",
+        @Query("language") language: String? = "en",
+        @Query("apiKey") apiKey: String? = "30ecb3c86e204bbe9207b869b1800e7b",
     ): Flowable<LoggedInNews>
 }

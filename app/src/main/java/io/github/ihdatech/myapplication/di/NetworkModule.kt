@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.ihdatech.myapplication.data.remote.MuseumService
 import io.github.ihdatech.myapplication.data.remote.NewsService
+import io.github.ihdatech.myapplication.network.HttpRequestInterceptor
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,23 +17,33 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    @Singleton
     @Provides
-    fun provideMuseumService(): MuseumService {
-        return Retrofit.Builder().apply {
-            baseUrl("https://obscure-earth-55790.herokuapp.com")
-            addConverterFactory(GsonConverterFactory.create())
-            addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        }.build().create(MuseumService::class.java)
+    @Singleton
+    fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(HttpRequestInterceptor())
+            .build()
     }
 
     @Singleton
     @Provides
-    fun provideNewsService(): NewsService {
-        return Retrofit.Builder().apply {
-            baseUrl("https://newsapi.org")
-            addConverterFactory(GsonConverterFactory.create())
-            addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        }.build().create(NewsService::class.java)
+    fun provideMuseumService(okHttpClient: OkHttpClient): MuseumService {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl("https://obscure-earth-55790.herokuapp.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build().create(MuseumService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNewsService(okHttpClient: OkHttpClient): NewsService {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl("https://newsapi.org")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build().create(NewsService::class.java)
     }
 }

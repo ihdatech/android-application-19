@@ -5,9 +5,11 @@ import io.github.ihdatech.myapplication.data.model.LoggedInHome
 import io.github.ihdatech.myapplication.data.remote.RemoteDataSource
 import io.reactivex.Flowable
 import javax.inject.Inject
-import android.app.Application
-import io.github.ihdatech.myapplication.data.local.LocalRoomDatabase
-
+import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import io.github.ihdatech.myapplication.data.model.LoggedInProduct
+import java.io.IOException
 
 class HomeRepository @Inject constructor(
     private val localDataSource: LocalDataSource,
@@ -33,4 +35,20 @@ class HomeRepository @Inject constructor(
     //         }
     //     })
     // }
+
+    fun getListFake(context: Context): Flowable<List<LoggedInProduct>> {
+        val jsonStringFile = "CoverProducts.json".getJsonFromAsset(context)
+        val listCoverType = object : TypeToken<List<LoggedInProduct>>() {}.type
+        val gson = Gson()
+        return gson.fromJson(jsonStringFile, listCoverType)
+    }
+
+    private fun String.getJsonFromAsset(context: Context): String? {
+        return try {
+            context.assets.open(this).bufferedReader().use { it.readText() }
+        } catch (ioException: IOException) {
+            ioException.printStackTrace()
+            null
+        }
+    }
 }
