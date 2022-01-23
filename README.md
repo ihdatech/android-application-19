@@ -1,10 +1,10 @@
 # android-application-19
 - minSdk 19
-- mvvm
-- kotlin
+- [mvvm](https://developer.android.com/training/dependency-injection/manual)
+- [kotlin](https://kotlinlang.org)
 
 ## List of Dependency
 - [rxkotlin](https://github.com/ReactiveX/RxKotlin)
+- [retrofit](https://github.com/square/retrofit)
+- [glide](https://github.com/bumptech/glide)
 - [hilt](https://developer.android.com/training/dependency-injection/hilt-android)
-- [retrofit](https://square.github.io/retrofit)
-- [glide](https://bumptech.github.io/glide)
