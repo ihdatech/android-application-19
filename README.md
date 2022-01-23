@@ -1,5 +1,6 @@
 # android-application-19
-- minSdk 19
+Android application with minSdk 19
+![image description](https://developer.android.com/topic/libraries/architecture/images/final-architecture.png)
 - [mvvm](https://developer.android.com/training/dependency-injection/manual)
 - [kotlin](https://kotlinlang.org)
 
