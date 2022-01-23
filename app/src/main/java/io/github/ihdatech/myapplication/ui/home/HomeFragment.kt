@@ -39,10 +39,10 @@ class HomeFragment : Fragment() {
                 if (it.data != null) {
                     binding.empty.root.visibility = View.GONE
                     binding.list.visibility = View.VISIBLE
-                    binding.list.adapter = HomeAdapter(it.data)
+                    binding.list.adapter = HomeAdapter(requireContext(), it.data)
                     binding.swipe.setOnRefreshListener {
                         binding.swipe.isRefreshing = false
-                        binding.list.adapter = HomeAdapter(it.data)
+                        binding.list.adapter = HomeAdapter(requireContext(), it.data)
                     }
                 } else {
                     binding.empty.root.visibility = View.VISIBLE

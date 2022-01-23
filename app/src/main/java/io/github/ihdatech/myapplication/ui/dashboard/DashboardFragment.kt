@@ -40,10 +40,10 @@ class DashboardFragment : Fragment() {
                 if (it.articles != null) {
                     binding.emptyDashboard.root.visibility = View.GONE
                     binding.listDashboard.visibility = View.VISIBLE
-                    binding.listDashboard.adapter = DashboardAdapter(it.articles)
+                    binding.listDashboard.adapter = DashboardAdapter(requireContext(), it.articles)
                     binding.swipeDashboard.setOnRefreshListener {
                         binding.swipeDashboard.isRefreshing = false
-                        binding.listDashboard.adapter = DashboardAdapter(it.articles)
+                        binding.listDashboard.adapter = DashboardAdapter(requireContext(), it.articles)
                     }
                 } else {
                     binding.emptyDashboard.root.visibility = View.VISIBLE
