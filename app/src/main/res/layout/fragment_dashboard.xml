@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="isEmpty"
             type="int" />
+
         <variable
             name="viewModel"
             type="io.github.ihdatech.myapplication.ui.dashboard.DashboardViewModel" />
@@ -25,15 +27,16 @@
 
             <include
                 android:id="@+id/empty_dashboard"
-                layout="@layout/fragment_home_item_empty"
+                layout="@layout/fragment_dashboard_empty"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_dashboard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/fragment_home_item" />
+                tools:listitem="@layout/fragment_dashboard_item" />
         </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
