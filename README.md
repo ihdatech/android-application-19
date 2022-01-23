@@ -4,7 +4,7 @@
 - kotlin
 
 ## List of Dependency
-- rxkotlin
-- hilt
-- retrofit
-- glide
+- [rxkotlin](https://github.com/ReactiveX/RxKotlin)
+- [hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+- [retrofit](https://square.github.io/retrofit)
+- [glide](https://bumptech.github.io/glide)
