@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.ihdatech.myapplication.databinding.FragmentDashboardBinding
@@ -14,12 +15,12 @@ import io.github.ihdatech.myapplication.databinding.FragmentDashboardBinding
 class DashboardFragment : Fragment() {
 
     private val dashboardViewModel: DashboardViewModel by viewModels()
-    // private lateinit var dashboardViewModel: DashboardViewModel
     private var _binding: FragmentDashboardBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private var columnCount = 2
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
@@ -29,7 +30,10 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.emptyDashboard.root.visibility = View.VISIBLE
-        binding.listDashboard.layoutManager = LinearLayoutManager(context)
+        binding.listDashboard.layoutManager = when {
+            columnCount <= 1 -> LinearLayoutManager(context)
+            else -> GridLayoutManager(context, columnCount)
+        }
         binding.listDashboard.visibility = View.GONE
         binding.swipeDashboard.isRefreshing = true
         // println("[TATA FUCKING IN FRAGMENT]: ${newsService.everything()}")
