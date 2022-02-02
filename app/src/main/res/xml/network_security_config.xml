@@ -3,5 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">obscure-earth-55790.herokuapp.com</domain>
         <domain includeSubdomains="true">newsapi.org</domain>
+        <domain includeSubdomains="true">museos.cultura.pe</domain>
     </domain-config>
 </network-security-config>

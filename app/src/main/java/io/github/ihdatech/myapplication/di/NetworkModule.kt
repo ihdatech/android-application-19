@@ -4,8 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.github.ihdatech.myapplication.data.remote.MuseumService
-import io.github.ihdatech.myapplication.data.remote.NewsService
+import io.github.ihdatech.myapplication.data.remote.ProductsService
 import io.github.ihdatech.myapplication.network.HttpRequestInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -27,23 +26,12 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideMuseumService(okHttpClient: OkHttpClient): MuseumService {
+    fun provideProductsService(okHttpClient: OkHttpClient): ProductsService {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("https://obscure-earth-55790.herokuapp.com")
+            .baseUrl("https://ihdatech-products.herokuapp.com")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build().create(MuseumService::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun provideNewsService(okHttpClient: OkHttpClient): NewsService {
-        return Retrofit.Builder()
-            .client(okHttpClient)
-            .baseUrl("https://newsapi.org")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build().create(NewsService::class.java)
+            .build().create(ProductsService::class.java)
     }
 }

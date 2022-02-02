@@ -1,7 +1,7 @@
 package io.github.ihdatech.myapplication.data
 
+import android.annotation.SuppressLint
 import io.github.ihdatech.myapplication.data.local.LocalDataSource
-import io.github.ihdatech.myapplication.data.model.LoggedInHome
 import io.github.ihdatech.myapplication.data.remote.RemoteDataSource
 import io.reactivex.Flowable
 import javax.inject.Inject
@@ -9,14 +9,19 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.github.ihdatech.myapplication.data.model.LoggedInProduct
+import java.io.File
 import java.io.IOException
+import android.os.Environment
+import java.io.InputStream
+
 
 class HomeRepository @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
 ) {
-    fun getList(): Flowable<LoggedInHome> = remoteDataSource.createMuseum.museumList()
+    fun getList(): Flowable<List<LoggedInProduct>> = remoteDataSource.create.products()
 
+    // fun getList(): Flowable<LoggedInHome> = remoteDataSource.createMuseum.museumList()
     // private val _list = MutableLiveData<ArrayList<LoggedInHome>>().apply { value = arrayListOf() }
     // private var _refresh = MutableLiveData<ArrayList<LoggedInHome>>().apply { value = arrayListOf() }
     // private var _refreshing = MutableLiveData<Boolean>().apply { value = true }
@@ -35,20 +40,4 @@ class HomeRepository @Inject constructor(
     //         }
     //     })
     // }
-
-    fun getListFake(context: Context): Flowable<List<LoggedInProduct>> {
-        val jsonStringFile = "CoverProducts.json".getJsonFromAsset(context)
-        val listCoverType = object : TypeToken<List<LoggedInProduct>>() {}.type
-        val gson = Gson()
-        return gson.fromJson(jsonStringFile, listCoverType)
-    }
-
-    private fun String.getJsonFromAsset(context: Context): String? {
-        return try {
-            context.assets.open(this).bufferedReader().use { it.readText() }
-        } catch (ioException: IOException) {
-            ioException.printStackTrace()
-            null
-        }
-    }
 }

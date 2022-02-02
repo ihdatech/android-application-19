@@ -34,16 +34,16 @@ class DashboardFragment : Fragment() {
         binding.swipeDashboard.isRefreshing = true
         // println("[TATA FUCKING IN FRAGMENT]: ${newsService.everything()}")
         // dashboardViewModel = ViewModelProvider(this, DashboardViewModelFactory())[DashboardViewModel::class.java]
-        dashboardViewModel.articles.observe(viewLifecycleOwner, { listResult ->
+        dashboardViewModel.list.observe(viewLifecycleOwner, { listResult ->
             listResult.map {
                 binding.swipeDashboard.isRefreshing = false
-                if (it.articles != null) {
+                if (it.isNotEmpty()) {
                     binding.emptyDashboard.root.visibility = View.GONE
                     binding.listDashboard.visibility = View.VISIBLE
-                    binding.listDashboard.adapter = DashboardAdapter(requireContext(), it.articles)
+                    binding.listDashboard.adapter = DashboardAdapter(requireContext(), it)
                     binding.swipeDashboard.setOnRefreshListener {
                         binding.swipeDashboard.isRefreshing = false
-                        binding.listDashboard.adapter = DashboardAdapter(requireContext(), it.articles)
+                        binding.listDashboard.adapter = DashboardAdapter(requireContext(), it)
                     }
                 } else {
                     binding.emptyDashboard.root.visibility = View.VISIBLE
