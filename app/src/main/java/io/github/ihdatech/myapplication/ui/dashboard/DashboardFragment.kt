@@ -12,9 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.github.ihdatech.myapplication.databinding.FragmentDashboardBinding
 import android.annotation.SuppressLint
 import android.provider.Settings
-import android.content.ContentResolver
 import android.os.Build
-
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
