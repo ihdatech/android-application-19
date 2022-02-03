@@ -55,9 +55,9 @@ class HomeFragment : Fragment() {
         // homeViewModel.text.observe(viewLifecycleOwner, {
         //     println("[TATA FUCKING IN FRAGMENT]: $it")
         // })
-        requireContext().assets.open("products.json").bufferedReader().readLine().apply {
-            println("[TATA FUCKING IN FRAGMENT]: $this")
-        }
+        // requireContext().assets.open("products.json").bufferedReader().readLine().apply {
+        //     println("[TATA FUCKING IN FRAGMENT]: $this")
+        // }
     }
 
     override fun onDestroyView() {

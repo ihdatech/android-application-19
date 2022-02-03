@@ -10,6 +10,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.ihdatech.myapplication.databinding.FragmentDashboardBinding
+import android.annotation.SuppressLint
+import android.provider.Settings
+import android.content.ContentResolver
+import android.os.Build
+
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
@@ -36,7 +41,8 @@ class DashboardFragment : Fragment() {
         }
         binding.listDashboard.visibility = View.GONE
         binding.swipeDashboard.isRefreshing = true
-        // println("[TATA FUCKING IN FRAGMENT]: ${newsService.everything()}")
+        println("[TATA FUCKING IN FRAGMENT]: ${getAndroidId()}")
+        println("[TATA FUCKING IN FRAGMENT]: ${Build.ID}")
         // dashboardViewModel = ViewModelProvider(this, DashboardViewModelFactory())[DashboardViewModel::class.java]
         dashboardViewModel.list.observe(viewLifecycleOwner, { listResult ->
             listResult.map {
@@ -61,4 +67,18 @@ class DashboardFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    /**
+     * Returns the Android hardware device ID that is unique between the device + user and app
+     * signing. This key will change if the app is uninstalled or its data is cleared. Device factory
+     * reset will also result in a value change.
+     *
+     * @return The android ID
+     */
+    @SuppressLint("HardwareIds")
+    private fun getAndroidId(): String? {
+        return Settings.Secure.getString(context?.contentResolver, Settings.Secure.ANDROID_ID)
+    }
+
+    companion object {}
 }
