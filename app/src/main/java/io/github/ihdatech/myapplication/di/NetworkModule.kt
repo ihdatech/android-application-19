@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.github.ihdatech.myapplication.data.remote.ProductsService
+import io.github.ihdatech.myapplication.data.remote.ZodiacService
 import io.github.ihdatech.myapplication.network.HttpRequestInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -26,12 +26,12 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideProductsService(okHttpClient: OkHttpClient): ProductsService {
+    fun provideProductsService(okHttpClient: OkHttpClient): ZodiacService {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://ihdatech-products.herokuapp.com")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build().create(ProductsService::class.java)
+            .build().create(ZodiacService::class.java)
     }
 }

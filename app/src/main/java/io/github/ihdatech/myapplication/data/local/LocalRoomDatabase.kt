@@ -7,16 +7,16 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import io.github.ihdatech.myapplication.data.model.LoggedInProduct
+import io.github.ihdatech.myapplication.data.model.LoggedInZodiac
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-@Database(entities = [ProductEntity::class, ProductImageEntity::class], version = 1, exportSchema = false)
+@Database(entities = [ZodiacEntity::class, ProductImageEntity::class], version = 1, exportSchema = false)
 abstract class LocalRoomDatabase : RoomDatabase() {
 
-    abstract fun productDao(): ProductDao
+    abstract fun zodiacDao(): ZodiacDao
     abstract fun productImageDao(): ProductImageDao
 
     companion object {
@@ -50,7 +50,7 @@ abstract class LocalRoomDatabase : RoomDatabase() {
                     scope.launch(Dispatchers.IO) {
                         populateDatabase(
                             context,
-                            database.productDao(),
+                            database.zodiacDao(),
                             database.productImageDao(),
                         )
                     }
@@ -60,22 +60,22 @@ abstract class LocalRoomDatabase : RoomDatabase() {
 
         suspend fun populateDatabase(
             context: Context,
-            productDao: ProductDao,
+            ZodiacDao: ZodiacDao,
             productImageDao: ProductImageDao,
         ) {
-            productDao.deleteAll()
+            ZodiacDao.deleteAll()
             val jsonStringFile = "CoverProducts.json".getJsonFromAsset(context)
-            val listCoverType = object : TypeToken<List<LoggedInProduct>>() {}.type
+            val listCoverType = object : TypeToken<List<LoggedInZodiac>>() {}.type
             val gson = Gson()
-            val loggedInProduct: List<LoggedInProduct> = gson.fromJson(jsonStringFile, listCoverType)
-            loggedInProduct.forEach {
-                val productEntity = ProductEntity(it.id, it.price, it.title, it.description)
-                productDao.insert(productEntity)
+            val LoggedInZodiac: List<LoggedInZodiac> = gson.fromJson(jsonStringFile, listCoverType)
+            LoggedInZodiac.forEach {
+                val ZodiacEntity = ZodiacEntity(it.name, it.startDate, it.endDate)
+                ZodiacDao.insert(ZodiacEntity)
 
-                it.images.forEach { image ->
-                    val productImageEntity = ProductImageEntity(it.id, image)
-                    productImageDao.insert(productImageEntity)
-                }
+//                it.images.forEach { image ->
+//                    val productImageEntity = ProductImageEntity(it.id, image)
+//                    productImageDao.insert(productImageEntity)
+//                }
             }
         }
 

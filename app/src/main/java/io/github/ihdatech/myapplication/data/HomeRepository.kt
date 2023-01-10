@@ -8,7 +8,7 @@ import javax.inject.Inject
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import io.github.ihdatech.myapplication.data.model.LoggedInProduct
+import io.github.ihdatech.myapplication.data.model.LoggedInZodiac
 import java.io.File
 import java.io.IOException
 import android.os.Environment
@@ -19,7 +19,7 @@ class HomeRepository @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
 ) {
-    fun getList(): Flowable<List<LoggedInProduct>> = remoteDataSource.create.products()
+    fun getList(): Flowable<List<LoggedInZodiac>> = remoteDataSource.create.products()
 
     // fun getList(): Flowable<LoggedInHome> = remoteDataSource.createMuseum.museumList()
     // private val _list = MutableLiveData<ArrayList<LoggedInHome>>().apply { value = arrayListOf() }
